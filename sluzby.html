@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Služby | IT Servis Třebíč</title>
+  <meta name="description" content="Kompletní přehled IT služeb — opravy počítačů, sítě, software a zálohy pro domácnosti v Třebíči.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=32">
+</head>
+<body class="its-app">
+
+  <nav class="its-nav">
+    <div class="its-nav__inner">
+      <a href="index.html" class="its-nav__brand">IT Servis <span>Třebíč</span></a>
+      <div class="its-nav__links">
+        <a href="index.html" class="its-nav__link">Domů</a>
+        <a href="index.html#cenik" class="its-nav__link">Ceník</a>
+        <a href="index.html#faq" class="its-nav__link">FAQ</a>
+        <a href="kontakt.html" class="its-nav__link">Kontakt</a>
+      </div>
+      <div class="its-nav__actions">
+        <a href="tel:+420736238787" class="its-nav__call">
+          <svg class="its-nav__call-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="its-nav__call-text">
+            <span class="its-nav__call-number">+420 736 238 787</span>
+            <span class="its-nav__call-hours">(po–pá 09–17)</span>
+          </span>
+        </a>
+        <a href="index.html?kategorie=iphone#cenik" class="its-nav__phone">Objednat servis</a>
+        <button type="button" id="menu-btn" class="its-menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="its-mobile-menu">
+      <a href="index.html" class="its-mobile-menu__link">Domů</a>
+      <a href="index.html#cenik" class="its-mobile-menu__link">Ceník</a>
+      <a href="index.html#faq" class="its-mobile-menu__link">FAQ</a>
+      <a href="kontakt.html" class="its-mobile-menu__link">Kontakt</a>
+      <a href="tel:+420736238787" class="its-mobile-menu__link">+420 736 238 787</a>
+      <a href="index.html?kategorie=iphone#cenik" class="its-mobile-menu__phone">Objednat servis</a>
+    </div>
+  </nav>
+
+  <main class="its-page-main">
+    <header class="its-page-header">
+      <div class="its-container">
+        <p class="its-section__eyebrow">Naše služby</p>
+        <h1 class="its-page-header__title">Co přesně pro vás můžeme udělat</h1>
+        <p class="its-page-header__text">Komplexní IT servis pro domácnosti. Každou zakázku řešíme individuálně s důrazem na kvalitu a rychlost.</p>
+      </div>
+    </header>
+
+    <section class="its-section" id="opravy">
+      <div class="its-container">
+        <div class="its-section__head">
+          <h2 class="its-section__title">Opravy hardware</h2>
+        </div>
+        <div class="its-service-block">
+          <div class="its-service-block__head">
+            <h3 class="its-service-block__title">Diagnostika a oprava PC / notebooku</h3>
+            <span class="its-service-block__price">od 490 Kč</span>
+          </div>
+          <ul class="its-service-block__list">
+            <li>Kontrola hardwaru a softwaru</li>
+            <li>Oprava základní desky, displeje, klávesnice</li>
+            <li>Výměna HDD/SSD, RAM, baterie</li>
+            <li>Čištění a výměna teplovodivé pasty</li>
+          </ul>
+        </div>
+        <div class="its-service-block">
+          <div class="its-service-block__head">
+            <h3 class="its-service-block__title">Upgrade a optimalizace</h3>
+            <span class="its-service-block__price">od 390 Kč</span>
+          </div>
+          <ul class="its-service-block__list">
+            <li>Přechod na SSD — výrazné zrychlení</li>
+            <li>Rozšíření operační paměti</li>
+            <li>Optimalizace systému Windows</li>
+            <li>Doporučení vhodné konfigurace</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="its-section its-section--alt" id="site">
+      <div class="its-container">
+        <div class="its-section__head">
+          <h2 class="its-section__title">Sítě a zabezpečení</h2>
+        </div>
+        <div class="its-service-block">
+          <div class="its-service-block__head">
+            <h3 class="its-service-block__title">Domácí sítě</h3>
+            <span class="its-service-block__price">od 990 Kč</span>
+          </div>
+          <ul class="its-service-block__list">
+            <li>Návrh a instalace Wi-Fi sítě</li>
+            <li>Konfigurace routerů a switchů</li>
+            <li>Propojení více budov / pater</li>
+            <li>Řešení slabého signálu</li>
+          </ul>
+        </div>
+        <div class="its-service-block">
+          <div class="its-service-block__head">
+            <h3 class="its-service-block__title">Zabezpečení a monitoring</h3>
+            <span class="its-service-block__price">od 790 Kč</span>
+          </div>
+          <ul class="its-service-block__list">
+            <li>Instalace antiviru a firewallu</li>
+            <li>Zabezpečení Wi-Fi sítě</li>
+            <li>Záložní připojení k internetu</li>
+            <li>Pravidelná kontrola aktualizací</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="its-section" id="software">
+      <div class="its-container">
+        <div class="its-section__head">
+          <h2 class="its-section__title">Software a data</h2>
+        </div>
+        <div class="its-service-block">
+          <div class="its-service-block__head">
+            <h3 class="its-service-block__title">Instalace a konfigurace</h3>
+            <span class="its-service-block__price">od 390 Kč</span>
+          </div>
+          <ul class="its-service-block__list">
+            <li>Instalace Windows, Linux, macOS</li>
+            <li>Ovladače a kancelářské balíky</li>
+            <li>Přenos dat ze starého zařízení</li>
+            <li>Nastavení tiskáren a periferií</li>
+          </ul>
+        </div>
+        <div class="its-service-block">
+          <div class="its-service-block__head">
+            <h3 class="its-service-block__title">Zálohování a obnova dat</h3>
+            <span class="its-service-block__price">od 590 Kč</span>
+          </div>
+          <ul class="its-service-block__list">
+            <li>Obnova smazaných souborů</li>
+            <li>Nastavení automatických záloh</li>
+            <li>Záloha na NAS nebo cloud</li>
+            <li>Řešení po pádu disku</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="its-section its-section--alt">
+      <div class="its-container">
+        <div class="its-cta">
+          <h2 class="its-cta__title">Nejste si jistí, co potřebujete?</h2>
+          <p class="its-cta__text">Zavolejte nebo napište — poradíme zdarma a navrhneme nejvhodnější řešení.</p>
+          <div class="its-cta__actions">
+            <a href="index.html?kategorie=iphone#cenik" class="its-btn its-btn--primary">Nezávazná poptávka</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="its-footer">
+        <div class="its-footer__inner">
+      <div class="its-footer__grid">
+        <div>
+          <div class="its-footer__brand">IT Servis <span>Třebíč</span></div>
+          <p class="its-footer__desc">Opravy iPhonů, počítačů a notebooků pro domácnosti v Třebíči a okolí.</p>
+          <p class="its-footer__legal">Provozovatel: Matyáš Odehnal<br>IČO: 29800480<br>Sídlo: Novodvorská 1077/15, Nové Dvory, 674 01 Třebíč</p>
+        </div>
+        <div>
+          <h3 class="its-footer__heading">Navigace</h3>
+          <div class="its-footer__links">
+            <a href="index.html#cenik" class="its-footer__link">Ceník</a>
+            <a href="index.html#faq" class="its-footer__link">FAQ</a>
+            <a href="kontakt.html" class="its-footer__link">Kontakt</a>
+            <a href="obchodni-podminky.html" class="its-footer__link">Obchodní podmínky</a>
+            <a href="ochrana-udaju.html" class="its-footer__link">Ochrana údajů</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="its-footer__heading">Kontakt</h3>
+          <div class="its-footer__links">
+            <a href="tel:+420736238787" class="its-footer__link">+420 736 238 787</a>
+            <a href="mailto:matyod@seznam.cz" class="its-footer__link">matyod@seznam.cz</a>
+            <span class="its-footer__link">Novodvorská 1077/15<br>Nové Dvory, 674 01 Třebíč</span>
+          </div>
+        </div>
+      </div>
+      <div class="its-footer__bottom">
+        <span>© 2026 Matyáš Odehnal — IT Servis Třebíč</span>
+        <div class="its-footer__bottom-links">
+          <a href="obchodni-podminky.html">Obchodní podmínky</a>
+          <a href="ochrana-udaju.html">Ochrana údajů</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/cart.js?v=30"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

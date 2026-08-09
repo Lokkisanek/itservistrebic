@@ -1,0 +1,16 @@
+{
+  "mobile": {
+    "label": "Mobilní telefony (iPhone)",
+    "freeIfRepaired": true,
+    "feeIfDeclined": 390,
+    "ruleSummary": "Diagnostika u mobilu je zdarma, pokud po ní opravu provedeme. Pokud opravu nechcete, účtujeme poplatek za diagnostiku.",
+    "messageTemplate": "Dobrý den,\n\nu Vašeho zařízení ({{device}}) jsme dokončili diagnostiku v rámci zakázky {{orderId}}.\n\nNalezená závada / návrh opravy:\n{{findings}}\n\nOrientační cena opravy: {{price}}\n\nPravidlo diagnostiky: Pokud opravu provedeme, diagnostika je zdarma. Pokud se rozhodnete opravu neprovádět, účtujeme poplatek za diagnostiku {{fee}}.\n\nDejte prosím vědět, jestli máme v opravě pokračovat — můžete odpovědět na tento e-mail, nebo Vám zavolám.\n\nS pozdravem\nIT Servis Třebíč\n+420 736 238 787\nmatyod@seznam.cz"
+  },
+  "pc": {
+    "label": "PC / notebook",
+    "freeIfRepaired": true,
+    "feeIfDeclined": 0,
+    "ruleSummary": "Diagnostika PC / notebooku je zdarma při provedené opravě.",
+    "messageTemplate": "Dobrý den,\n\nu Vašeho zařízení ({{device}}) jsme dokončili diagnostiku (zakázka {{orderId}}).\n\nNalezená závada / návrh:\n{{findings}}\n\nOrientační cena: {{price}}\n\nDiagnostika je zdarma, pokud opravu provedeme.\n\nDejte prosím vědět, jak chcete pokračovat.\n\nS pozdravem\nIT Servis Třebíč\n+420 736 238 787"
+  }
+}

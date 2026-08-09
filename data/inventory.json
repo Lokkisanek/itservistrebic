@@ -1,0 +1,7 @@
+{
+  "leadDaysWhenOutOfStock": 2,
+  "defaultMinQty": 1,
+  "stock": {},
+  "minQty": {},
+  "partSuppliers": {}
+}

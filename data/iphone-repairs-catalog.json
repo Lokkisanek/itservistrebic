@@ -1,0 +1,122 @@
+{
+  "sections": [
+    {
+      "title": "Problém s displejem",
+      "items": [
+        {
+          "id": "display-premium",
+          "title": "Výměna displeje — Premium kvalita",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-broken-display-logo.svg",
+          "iconDisplay": true
+        },
+        {
+          "id": "display-standard",
+          "title": "Výměna displeje — Standard kvalita",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-broken-display-logo.svg",
+          "iconDisplay": true
+        },
+        {
+          "id": "display-original",
+          "title": "Výměna displeje — Original kvalita",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-broken-display-logo.svg",
+          "iconDisplay": true
+        }
+      ]
+    },
+    {
+      "title": "Mechanické poškození",
+      "items": [
+        {
+          "id": "power-button",
+          "title": "Výměna tlačítka power",
+          "time": "Průměrně do 4 hod",
+          "icon": "images/devices/iphone-parts/iphone-turn-on-off-button"
+        },
+        {
+          "id": "volume-buttons",
+          "title": "Výměna tlačítek hlasitosti",
+          "time": "Průměrně do 4 hod",
+          "icon": "images/devices/iphone-parts/iphone-hlasitost-button-logo.png"
+        },
+        {
+          "id": "housing",
+          "title": "Výměna pouzdra",
+          "time": "Průměrně do 7 hod",
+          "icon": "images/devices/iphone-parts/iphone-displej.webp"
+        },
+        {
+          "id": "back-glass",
+          "title": "Výměna zadního skla",
+          "time": "Průměrně do 1 den",
+          "icon": "images/devices/iphone-parts/iphone-zadni-sklo-logo.webp"
+        }
+      ]
+    },
+    {
+      "title": "Problémy se zvukem",
+      "items": [
+        {
+          "id": "speaker-bottom",
+          "title": "Oprava spodního reproduktoru",
+          "time": "Průměrně do 1 hod",
+          "icon": "images/devices/iphone-parts/iphone-spodni-reproduktor-logo.webp"
+        },
+        {
+          "id": "speaker-top",
+          "title": "Oprava horního reproduktoru / sluchátka",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-horni-reproduktor-logo.png"
+        },
+        {
+          "id": "mic-bottom",
+          "title": "Oprava spodního mikrofonu",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-spodni-mikrofon-logo.png"
+        }
+      ]
+    },
+    {
+      "title": "Baterie a nabíjení",
+      "items": [
+        {
+          "id": "battery",
+          "title": "Výměna baterie",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-baterie.webp"
+        },
+        {
+          "id": "charging-port",
+          "title": "Oprava nabíjecího konektoru",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-nabijeci-konektor-logo.webp"
+        }
+      ]
+    },
+    {
+      "title": "Kamery a Face ID",
+      "items": [
+        {
+          "id": "camera-rear",
+          "title": "Oprava zadní kamery",
+          "time": "Průměrně do 3 hod",
+          "icon": "images/devices/iphone-parts/iphone-zadni\u0301-kamera-logo.webp"
+        },
+        {
+          "id": "camera-front",
+          "title": "Oprava přední kamery",
+          "time": "Průměrně do 2 hod",
+          "icon": "images/devices/iphone-parts/iphone-pr\u030cedni-kamera-logo.png"
+        },
+        {
+          "id": "face-id",
+          "title": "Oprava Face ID",
+          "time": "Průměrně do 1 den",
+          "icon": "images/devices/iphone-parts/iphone-faceid-logo.webp"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Přihlášení | Admin IT Servis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="its-app its-admin-body">
+
+  <div class="its-admin-login">
+    <div class="its-admin-login__box">
+      <h1 class="its-admin-login__title">Admin IT Servis</h1>
+      <p class="its-admin-login__text">Soukromá sekce pro správu ceníku, zakázek a účetnictví.</p>
+      <div id="login-alert"></div>
+      <form id="login-form">
+        <div class="its-admin-field">
+          <label for="password">Heslo</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required autofocus>
+        </div>
+        <div class="its-admin-actions">
+          <button type="submit" class="its-admin-btn its-admin-btn--primary" style="width:100%">Přihlásit se</button>
+        </div>
+      </form>
+      <p class="its-admin-login__text" style="margin-top:1.25rem;margin-bottom:0;font-size:0.75rem">
+        Spusťte server: <code>npm start</code> · Heslo nastavte v souboru <code>.env</code>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/admin-api.js?v=30"></script>
+  <script src="js/admin-login.js"></script>
+</body>
+</html>

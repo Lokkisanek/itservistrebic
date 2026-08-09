@@ -1,0 +1,13 @@
+{
+  "baseFrom": "Novodvorská 1077/15, Nové Dvory, 674 01 Třebíč",
+  "origin": {
+    "lat": 49.2178325,
+    "lng": 15.8984422
+  },
+  "pricing": {
+    "baseFee": 39,
+    "includedKm": 5,
+    "perKm": 12,
+    "maxKm": 60
+  }
+}

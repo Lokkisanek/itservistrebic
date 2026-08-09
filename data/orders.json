@@ -1,0 +1,47 @@
+{
+  "orders": [
+    {
+      "id": "ord-mrq97ssj-0414ab",
+      "customer": "Test Zakaznik",
+      "phone": "736238787",
+      "email": "t@t.cz",
+      "device": "iPhone 16",
+      "repair": "Výměna baterie (iPhone 16)",
+      "items": [
+        {
+          "modelId": "iphone-16",
+          "modelName": "iPhone 16",
+          "repairId": "battery",
+          "repairTitle": "Výměna baterie",
+          "price": 1890,
+          "time": "",
+          "icon": ""
+        }
+      ],
+      "status": "prijato",
+      "price": 1890,
+      "paid": 0,
+      "paymentMethod": "qr",
+      "preferredAt": "2026-07-20T10:00",
+      "note": "test\nPreferovaný termín: 2026-07-20T10:00\nPlatba: QR kód na místě",
+      "source": "web",
+      "createdAt": "2026-07-18T10:58:54.210Z",
+      "updatedAt": "2026-07-18T10:58:54.210Z"
+    },
+    {
+      "id": "ord-mrlu79u2-4bd739",
+      "customer": "Test",
+      "phone": "123",
+      "email": "t@t.cz",
+      "device": "iPhone 16 Pro",
+      "repair": "Displej (iPhone 16 Pro)",
+      "status": "prijato",
+      "price": 9000,
+      "paid": 0,
+      "paymentMethod": "hotovost",
+      "note": "Položky košíku: [{\"modelName\":\"iPhone 16 Pro\",\"repairTitle\":\"Displej\",\"price\":9000}]",
+      "createdAt": "2026-07-15T08:47:30.697Z",
+      "updatedAt": "2026-07-15T08:47:30.697Z"
+    }
+  ]
+}

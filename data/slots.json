@@ -1,0 +1,40 @@
+{
+  "slots": [
+    {
+      "id": "slot-demo-1",
+      "date": "2026-07-21",
+      "time": "09:00",
+      "booked": false
+    },
+    {
+      "id": "slot-demo-2",
+      "date": "2026-07-21",
+      "time": "11:00",
+      "booked": false
+    },
+    {
+      "id": "slot-demo-3",
+      "date": "2026-07-21",
+      "time": "14:00",
+      "booked": false
+    },
+    {
+      "id": "slot-demo-4",
+      "date": "2026-07-22",
+      "time": "10:00",
+      "booked": false
+    },
+    {
+      "id": "slot-demo-5",
+      "date": "2026-07-22",
+      "time": "15:00",
+      "booked": false
+    },
+    {
+      "id": "slot-demo-6",
+      "date": "2026-07-23",
+      "time": "09:30",
+      "booked": false
+    }
+  ]
+}

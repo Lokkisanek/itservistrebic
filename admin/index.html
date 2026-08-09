@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin | IT Servis Třebíč</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css?v=37">
+</head>
+<body class="its-app its-admin-body">
+
+  <div class="its-admin-loading" id="admin-loading">
+    <p>Ověřuji přihlášení…</p>
+  </div>
+
+  <div class="its-admin-layout" id="admin-app" hidden>
+    <aside class="its-admin-sidebar">
+      <div class="its-admin-sidebar__brand">IT Servis <span>Admin</span></div>
+      <nav class="its-admin-nav" aria-label="Admin navigace">
+        <a href="#prehled" class="its-admin-nav__link its-admin-nav__link--active" data-panel="prehled">Přehled</a>
+        <a href="#cenik" class="its-admin-nav__link" data-panel="cenik">Ceník iPhone</a>
+        <a href="#marze" class="its-admin-nav__link" data-panel="marze">Marže</a>
+        <a href="#obsah" class="its-admin-nav__link" data-panel="obsah">Obsah oprav</a>
+        <a href="#zakazky" class="its-admin-nav__link" data-panel="zakazky">Zakázky</a>
+        <a href="#terminy" class="its-admin-nav__link" data-panel="terminy">Termíny</a>
+        <a href="#sklad" class="its-admin-nav__link" data-panel="sklad">Sklad</a>
+        <a href="#dodavatele" class="its-admin-nav__link" data-panel="dodavatele">Dodavatelé</a>
+        <a href="#ucetnictvi" class="its-admin-nav__link" data-panel="ucetnictvi">Účetnictví</a>
+        <a href="#statistiky" class="its-admin-nav__link" data-panel="statistiky">Statistiky</a>
+        <a href="#checklist" class="its-admin-nav__link" data-panel="checklist">Co je potřeba</a>
+      </nav>
+      <div class="its-admin-actions" style="margin-top:1.5rem;padding:0 0.5rem">
+        <a href="../index.html" class="its-admin-btn its-admin-btn--ghost" style="width:100%;text-align:center;text-decoration:none">← Na web</a>
+        <button type="button" id="logout-btn" class="its-admin-btn its-admin-btn--ghost" style="width:100%">Odhlásit</button>
+      </div>
+    </aside>
+
+    <main class="its-admin-main">
+      <div id="global-alert"></div>
+
+      <!-- Přehled -->
+      <section class="its-admin-panel its-admin-panel--active" id="panel-prehled">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Přehled</h1>
+        </div>
+        <div class="its-admin-stats" id="dashboard-stats"></div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Rychlé akce</h2>
+          <div class="its-admin-actions">
+            <button type="button" class="its-admin-btn its-admin-btn--primary" data-goto="zakazky">Nová zakázka</button>
+            <button type="button" class="its-admin-btn its-admin-btn--green" data-goto="ucetnictvi">Zapsat příjem</button>
+            <button type="button" class="its-admin-btn its-admin-btn--ghost" data-goto="sklad">Sklad dílů</button>
+            <button type="button" class="its-admin-btn its-admin-btn--ghost" data-goto="statistiky">Statistiky</button>
+            <button type="button" class="its-admin-btn its-admin-btn--ghost" data-goto="cenik">Upravit ceník</button>
+          </div>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Poslední zakázky</h2>
+          <div id="dashboard-orders"></div>
+        </div>
+      </section>
+
+      <!-- Ceník -->
+      <section class="its-admin-panel" id="panel-cenik">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Ceník iPhone</h1>
+          <button type="button" id="save-prices-btn" class="its-admin-btn its-admin-btn--primary">Uložit ceník</button>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Každý model iPhonu má vlastní ceny. <strong>Prodej</strong> = cena pro zákazníka (vč. DPH).
+          <strong>Nákup</strong> = cena dílu od dodavatele. <strong>Práce</strong> = vaše práce / režie.
+          Marže = prodej − nákup − práce. Veřejný web vidí jen prodejní cenu.
+        </div>
+        <div class="its-admin-card">
+          <div class="its-admin-form-grid">
+            <div class="its-admin-field">
+              <label for="price-model-select">Model iPhone</label>
+              <select id="price-model-select"></select>
+            </div>
+            <div class="its-admin-field">
+              <label for="price-vat-rate">Sazba DPH (%)</label>
+              <input type="number" id="price-vat-rate" min="0" max="100" step="1" value="21">
+            </div>
+          </div>
+        </div>
+        <div class="its-admin-stats" id="prices-margin-stats"></div>
+        <div class="its-admin-card" id="prices-editor"></div>
+      </section>
+
+      <!-- Marže -->
+      <section class="its-admin-panel" id="panel-marze">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Marže oprav</h1>
+          <button type="button" class="its-admin-btn its-admin-btn--ghost" data-goto="cenik">Upravit nákup / práci</button>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Marže = prodejní cena − nákup dílu − práce. Doplňte nákupní ceny a práci v ceníku u každé opravy.
+        </div>
+        <div class="its-admin-card">
+          <div class="its-admin-form-grid">
+            <div class="its-admin-field">
+              <label for="margin-model-select">Model</label>
+              <select id="margin-model-select">
+                <option value="">Všechny modely</option>
+              </select>
+            </div>
+            <div class="its-admin-field">
+              <label for="margin-filter">Filtrovat</label>
+              <select id="margin-filter">
+                <option value="all">Všechny položky</option>
+                <option value="with-cost">Jen s vyplněným nákupem</option>
+                <option value="missing-cost">Bez nákupní ceny</option>
+                <option value="low">Marže pod 20 %</option>
+                <option value="negative">Záporná marže</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="its-admin-stats" id="margin-stats"></div>
+        <div class="its-admin-card">
+          <div class="its-admin-table-wrap" id="margin-table"></div>
+        </div>
+      </section>
+
+      <!-- Obsah oprav -->
+      <section class="its-admin-panel" id="panel-obsah">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Obsah oprav</h1>
+          <button type="button" id="save-content-btn" class="its-admin-btn its-admin-btn--primary">Uložit obsah</button>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Upravujte texty, obrázky a porovnání variant na detailních stránkách oprav. Změny se projeví na veřejném webu po uložení.
+        </div>
+        <div class="its-admin-card">
+          <div class="its-admin-form-grid">
+            <div class="its-admin-field">
+              <label for="content-repair-select">Oprava</label>
+              <select id="content-repair-select"></select>
+            </div>
+          </div>
+        </div>
+        <div id="content-editor"></div>
+      </section>
+
+      <!-- Zakázky -->
+      <section class="its-admin-panel" id="panel-zakazky">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Zakázky</h1>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title" id="order-form-title">Nová zakázka</h2>
+          <form id="order-form">
+            <input type="hidden" id="order-id">
+            <div class="its-admin-form-grid its-admin-form-grid--3">
+              <div class="its-admin-field">
+                <label for="order-customer">Zákazník</label>
+                <input type="text" id="order-customer" required>
+              </div>
+              <div class="its-admin-field">
+                <label for="order-phone">Telefon</label>
+                <input type="tel" id="order-phone">
+              </div>
+              <div class="its-admin-field">
+                <label for="order-email">E-mail</label>
+                <input type="email" id="order-email">
+              </div>
+              <div class="its-admin-field">
+                <label for="order-device">Zařízení</label>
+                <input type="text" id="order-device" placeholder="např. iPhone 15 Pro">
+              </div>
+              <div class="its-admin-field">
+                <label for="order-repair">Oprava</label>
+                <input type="text" id="order-repair" placeholder="např. Výměna displeje">
+              </div>
+              <div class="its-admin-field">
+                <label for="order-status">Stav</label>
+                <select id="order-status">
+                  <option value="prijato">Přijato</option>
+                  <option value="diagnostika">Diagnostika</option>
+                  <option value="oprava">V opravě</option>
+                  <option value="hotovo">Hotovo</option>
+                  <option value="vyzvednuto">Vyzvednuto</option>
+                  <option value="storno">Storno</option>
+                </select>
+              </div>
+              <div class="its-admin-field">
+                <label for="order-price">Cena (Kč)</label>
+                <input type="number" id="order-price" min="0" step="1">
+              </div>
+              <div class="its-admin-field">
+                <label for="order-paid">Zaplaceno (Kč)</label>
+                <input type="number" id="order-paid" min="0" step="1">
+              </div>
+              <div class="its-admin-field">
+                <label for="order-payment">Platba</label>
+                <select id="order-payment">
+                  <option value="hotovost">Hotově na místě</option>
+                  <option value="qr">QR kód na místě</option>
+                </select>
+              </div>
+              <div class="its-admin-field its-admin-field--full">
+                <label for="order-note">Poznámka</label>
+                <textarea id="order-note"></textarea>
+              </div>
+            </div>
+
+            <div id="order-photos" class="its-admin-photos" hidden>
+              <h3 class="its-admin-photos__title">Fotodokumentace</h3>
+              <p class="its-admin-photos__hint">
+                Na mobilu otevřete zakázku, nafoťte zařízení při převzetí a po dokončení opravy.
+                Fotky se uloží přímo k této zakázce.
+              </p>
+
+              <div class="its-admin-photos__block">
+                <div class="its-admin-photos__head">
+                  <strong>Při převzetí</strong>
+                  <span id="order-photos-intake-count" class="its-admin-photos__count">0 fotek</span>
+                </div>
+                <div class="its-admin-photos__actions">
+                  <button type="button" class="its-admin-btn its-admin-btn--primary" id="order-photo-intake-btn">
+                    Vyfotit poškození
+                  </button>
+                  <input type="file" id="order-photo-intake-input" accept="image/*" capture="environment" multiple hidden>
+                </div>
+                <div class="its-admin-photos__grid" id="order-photos-intake-grid"></div>
+              </div>
+
+              <div class="its-admin-photos__block">
+                <div class="its-admin-photos__head">
+                  <strong>Po opravě</strong>
+                  <span id="order-photos-done-count" class="its-admin-photos__count">0 fotek</span>
+                </div>
+                <div class="its-admin-photos__actions">
+                  <button type="button" class="its-admin-btn its-admin-btn--primary" id="order-mark-done-btn">
+                    Oprava hotová — vyfotit
+                  </button>
+                  <button type="button" class="its-admin-btn its-admin-btn--ghost" id="order-photo-done-btn">
+                    Přidat fotku po opravě
+                  </button>
+                  <input type="file" id="order-photo-done-input" accept="image/*" capture="environment" multiple hidden>
+                </div>
+                <div class="its-admin-photos__grid" id="order-photos-done-grid"></div>
+              </div>
+            </div>
+
+            <div id="order-documents" class="its-admin-photos" hidden>
+              <h3 class="its-admin-photos__title">Doklady a podpis</h3>
+              <p class="its-admin-photos__hint">
+                Zákazník podepíše na vašem telefonu. Vznikne PDF (převzetí i doklad po opravě),
+                které můžete otevřít nebo poslat e-mailem.
+              </p>
+              <p id="order-mail-status" class="its-admin-photos__hint"></p>
+
+              <div class="its-admin-photos__block">
+                <div class="its-admin-photos__head">
+                  <strong>Převzetí do servisu</strong>
+                  <span id="order-doc-intake-status" class="its-admin-photos__count">Nepodepsáno</span>
+                </div>
+                <div class="its-admin-photos__actions">
+                  <button type="button" class="its-admin-btn its-admin-btn--primary" data-sign-doc="intake">
+                    Podepsat na telefonu
+                  </button>
+                  <a class="its-admin-btn its-admin-btn--ghost" id="order-doc-intake-view" href="#" target="_blank" rel="noopener" hidden>Otevřít PDF</a>
+                  <button type="button" class="its-admin-btn its-admin-btn--ghost" data-email-doc="intake" id="order-doc-intake-email" hidden>
+                    Poslat e-mailem
+                  </button>
+                </div>
+              </div>
+
+              <div class="its-admin-photos__block">
+                <div class="its-admin-photos__head">
+                  <strong>Doklad / faktura po opravě</strong>
+                  <span id="order-doc-done-status" class="its-admin-photos__count">Nepodepsáno</span>
+                </div>
+                <div class="its-admin-photos__actions">
+                  <button type="button" class="its-admin-btn its-admin-btn--primary" data-sign-doc="done">
+                    Podepsat na telefonu
+                  </button>
+                  <a class="its-admin-btn its-admin-btn--ghost" id="order-doc-done-view" href="#" target="_blank" rel="noopener" hidden>Otevřít PDF</a>
+                  <button type="button" class="its-admin-btn its-admin-btn--ghost" data-email-doc="done" id="order-doc-done-email" hidden>
+                    Poslat e-mailem
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="order-diagnosis" class="its-admin-photos" hidden>
+              <h3 class="its-admin-photos__title">Diagnostika</h3>
+              <p id="order-diagnosis-rule" class="its-admin-photos__hint"></p>
+
+              <div class="its-admin-photos__block">
+                <div class="its-admin-form-grid">
+                  <div class="its-admin-field">
+                    <label for="diag-category">Typ zařízení</label>
+                    <select id="diag-category">
+                      <option value="mobile">Mobil / iPhone</option>
+                      <option value="pc">PC / notebook</option>
+                    </select>
+                  </div>
+                  <div class="its-admin-field">
+                    <label for="diag-outcome">Výsledek / domluva</label>
+                    <select id="diag-outcome">
+                      <option value="pending">Čeká na odpověď</option>
+                      <option value="informed">Zpráva připravena / odeslána</option>
+                      <option value="repair">Pokračuje opravou (diagnostika zdarma)</option>
+                      <option value="declined">Opravu nechce (účtovat diagnostiku)</option>
+                    </select>
+                  </div>
+                  <div class="its-admin-field its-admin-field--full">
+                    <label for="diag-findings">Nalezená závada / návrh (doplňte)</label>
+                    <textarea id="diag-findings" rows="3" placeholder="např. nefunkční displej, doporučena výměna…"></textarea>
+                  </div>
+                  <div class="its-admin-field its-admin-field--full">
+                    <label for="diag-message">Zpráva zákazníkovi</label>
+                    <textarea id="diag-message" rows="10"></textarea>
+                  </div>
+                </div>
+                <div class="its-admin-photos__actions" style="margin-top:0.75rem">
+                  <button type="button" class="its-admin-btn its-admin-btn--ghost" id="diag-fill-template">Vyplnit šablonu</button>
+                  <button type="button" class="its-admin-btn its-admin-btn--ghost" id="diag-save-only">Uložit zprávu</button>
+                  <a class="its-admin-btn its-admin-btn--ghost" id="diag-call-btn" href="#">Zavolat</a>
+                  <a class="its-admin-btn its-admin-btn--ghost" id="diag-mailto-btn" href="#">Otevřít e-mail</a>
+                  <button type="button" class="its-admin-btn its-admin-btn--primary" id="diag-send-email">Poslat e-mailem</button>
+                </div>
+                <p id="diag-status" class="its-admin-photos__hint" style="margin-top:0.75rem;margin-bottom:0"></p>
+              </div>
+            </div>
+
+            <div id="order-parts" class="its-admin-photos" hidden>
+              <h3 class="its-admin-photos__title">Použité díly</h3>
+              <p class="its-admin-photos__hint">
+                Přiřaďte díl k zakázce (včetně dodavatele). Při přidání se standardně odečte ze skladu.
+              </p>
+              <div class="its-admin-photos__block">
+                <div class="its-admin-form-grid">
+                  <div class="its-admin-field">
+                    <label for="order-part-model">Model</label>
+                    <select id="order-part-model"></select>
+                  </div>
+                  <div class="its-admin-field">
+                    <label for="order-part-repair">Díl / oprava</label>
+                    <select id="order-part-repair"></select>
+                  </div>
+                  <div class="its-admin-field">
+                    <label for="order-part-qty">Kusů</label>
+                    <input type="number" id="order-part-qty" min="1" max="20" value="1">
+                  </div>
+                  <div class="its-admin-field">
+                    <label for="order-part-supplier">Dodavatel</label>
+                    <select id="order-part-supplier">
+                      <option value="">—</option>
+                    </select>
+                  </div>
+                  <div class="its-admin-field">
+                    <label for="order-part-cost">Nákup (Kč)</label>
+                    <input type="number" id="order-part-cost" min="0" step="1" placeholder="z ceníku">
+                  </div>
+                  <div class="its-admin-field">
+                    <label for="order-part-serial">Sériové č. dílu</label>
+                    <input type="text" id="order-part-serial" placeholder="volitelné">
+                  </div>
+                  <div class="its-admin-field its-admin-field--full">
+                    <label class="its-admin-check" style="margin-top:0">
+                      <input type="checkbox" id="order-part-decrement" checked>
+                      Odečíst ze skladu
+                    </label>
+                  </div>
+                </div>
+                <div class="its-admin-photos__actions" style="margin-top:0.75rem">
+                  <button type="button" class="its-admin-btn its-admin-btn--primary" id="order-part-add-btn">
+                    Přidat díl k zakázce
+                  </button>
+                </div>
+                <div id="order-parts-list" style="margin-top:1rem"></div>
+              </div>
+            </div>
+
+            <div class="its-admin-actions">
+              <button type="submit" class="its-admin-btn its-admin-btn--primary">Uložit zakázku</button>
+              <button type="button" id="order-cancel-btn" class="its-admin-btn its-admin-btn--ghost" hidden>Zrušit úpravu</button>
+            </div>
+          </form>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Seznam zakázek</h2>
+          <div class="its-admin-table-wrap" id="orders-table"></div>
+        </div>
+      </section>
+
+      <!-- Termíny -->
+      <section class="its-admin-panel" id="panel-terminy">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Termíny rezervací</h1>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Zde nastavíte, kdy máte čas. Zákazníci si při rezervaci vybírají jen z těchto volných termínů.
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Přidat termín</h2>
+          <form id="slot-form" class="its-admin-form-grid">
+            <div class="its-admin-field">
+              <label for="slot-date-input">Datum</label>
+              <input type="date" id="slot-date-input" required>
+            </div>
+            <div class="its-admin-field">
+              <label for="slot-time-input">Čas</label>
+              <input type="time" id="slot-time-input" required>
+            </div>
+            <div class="its-admin-field" style="display:flex;align-items:flex-end">
+              <button type="submit" class="its-admin-btn its-admin-btn--primary">Přidat</button>
+            </div>
+          </form>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Přehled termínů</h2>
+          <div class="its-admin-table-wrap" id="slots-table"></div>
+        </div>
+      </section>
+
+      <!-- Sklad -->
+      <section class="its-admin-panel" id="panel-sklad">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Sklad dílů</h1>
+          <button type="button" id="save-inventory-btn" class="its-admin-btn its-admin-btn--primary">Uložit sklad</button>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Zákazník na webu neuvidí stav skladu. Při 0 kusech jde rezervace nejdřív za
+          <strong id="inventory-lead-label">2</strong> dny.
+          Upozornění se zobrazí, když množství ≤ minimum.
+        </div>
+        <div class="its-admin-stats" id="inventory-alerts-stats"></div>
+        <div class="its-admin-card" id="inventory-alerts-card" hidden>
+          <h2 class="its-admin-card__title">Upozornění — nízký sklad</h2>
+          <div class="its-admin-table-wrap" id="inventory-alerts-table"></div>
+        </div>
+        <div class="its-admin-card">
+          <div class="its-admin-form-grid">
+            <div class="its-admin-field">
+              <label for="inventory-model-select">Model iPhone</label>
+              <select id="inventory-model-select"></select>
+            </div>
+            <div class="its-admin-field">
+              <label for="inventory-lead-days">Dny čekání bez skladu</label>
+              <input type="number" id="inventory-lead-days" min="0" max="30" step="1" value="2">
+            </div>
+            <div class="its-admin-field">
+              <label for="inventory-default-min">Výchozí minimum (ks)</label>
+              <input type="number" id="inventory-default-min" min="0" max="99" step="1" value="1">
+            </div>
+            <div class="its-admin-field" style="display:flex;align-items:flex-end;gap:0.5rem;flex-wrap:wrap">
+              <button type="button" id="inventory-all-zero" class="its-admin-btn its-admin-btn--ghost">Vše na 0</button>
+              <button type="button" id="inventory-all-one" class="its-admin-btn its-admin-btn--ghost">Vše skladem (1)</button>
+            </div>
+          </div>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Množství, minimum a dodavatel</h2>
+          <div id="inventory-editor"></div>
+        </div>
+      </section>
+
+      <!-- Dodavatelé -->
+      <section class="its-admin-panel" id="panel-dodavatele">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Dodavatelé dílů</h1>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Seznam firem, od kterých berete díly. U skladu i u zakázky pak můžete dodavatele přiřadit k konkrétnímu dílu.
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title" id="supplier-form-title">Nový dodavatel</h2>
+          <form id="supplier-form">
+            <input type="hidden" id="supplier-id">
+            <div class="its-admin-form-grid">
+              <div class="its-admin-field">
+                <label for="supplier-name">Název</label>
+                <input type="text" id="supplier-name" required placeholder="např. MobileParts CZ">
+              </div>
+              <div class="its-admin-field">
+                <label for="supplier-phone">Telefon</label>
+                <input type="tel" id="supplier-phone">
+              </div>
+              <div class="its-admin-field">
+                <label for="supplier-email">E-mail</label>
+                <input type="email" id="supplier-email">
+              </div>
+              <div class="its-admin-field">
+                <label for="supplier-website">Web</label>
+                <input type="url" id="supplier-website" placeholder="https://">
+              </div>
+              <div class="its-admin-field its-admin-field--full">
+                <label for="supplier-note">Poznámka</label>
+                <input type="text" id="supplier-note" placeholder="platební podmínky, kontaktní osoba…">
+              </div>
+            </div>
+            <div class="its-admin-actions">
+              <button type="submit" class="its-admin-btn its-admin-btn--primary">Uložit dodavatele</button>
+              <button type="button" id="supplier-cancel-btn" class="its-admin-btn its-admin-btn--ghost" hidden>Zrušit úpravu</button>
+            </div>
+          </form>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Seznam dodavatelů</h2>
+          <div class="its-admin-table-wrap" id="suppliers-table"></div>
+        </div>
+      </section>
+
+      <!-- Účetnictví -->
+      <section class="its-admin-panel" id="panel-ucetnictvi">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Účetnictví</h1>
+          <div class="its-admin-actions" style="margin:0;gap:0.5rem;flex-wrap:wrap">
+            <button type="button" id="export-acc-csv-btn" class="its-admin-btn its-admin-btn--ghost">Export záznamů CSV</button>
+            <button type="button" id="export-orders-csv-btn" class="its-admin-btn its-admin-btn--ghost">Export zakázek CSV</button>
+            <button type="button" id="export-month-csv-btn" class="its-admin-btn its-admin-btn--primary">Export měsíce CSV</button>
+          </div>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          CSV je oddělené středníkem (pro Excel). Export měsíce obsahuje přehled, účetní záznamy i zakázky za zvolený měsíc.
+        </div>
+        <div class="its-admin-stats" id="accounting-stats"></div>
+
+        <div class="its-admin-card">
+          <div class="its-admin-form-grid" style="align-items:end">
+            <div class="its-admin-field">
+              <label for="acc-month-select">Měsíční přehled</label>
+              <input type="month" id="acc-month-select">
+            </div>
+          </div>
+          <div class="its-admin-stats" id="accounting-month-stats" style="margin-top:1rem"></div>
+          <div class="its-admin-table-wrap" id="accounting-month-breakdown" style="margin-top:1rem"></div>
+        </div>
+
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Nový záznam</h2>
+          <form id="accounting-form">
+            <div class="its-admin-form-grid">
+              <div class="its-admin-field">
+                <label for="acc-type">Typ</label>
+                <select id="acc-type">
+                  <option value="income">Příjem</option>
+                  <option value="expense">Výdaj</option>
+                </select>
+              </div>
+              <div class="its-admin-field">
+                <label for="acc-amount">Částka (Kč)</label>
+                <input type="number" id="acc-amount" min="0" step="1" required>
+              </div>
+              <div class="its-admin-field">
+                <label for="acc-date">Datum</label>
+                <input type="date" id="acc-date" required>
+              </div>
+              <div class="its-admin-field">
+                <label for="acc-category">Kategorie</label>
+                <select id="acc-category">
+                  <option>Oprava zařízení</option>
+                  <option>Nákup dílů</option>
+                  <option>Software / licence</option>
+                  <option>Nájem / energie</option>
+                  <option>Marketing</option>
+                  <option>Mzdy</option>
+                  <option>Ostatní</option>
+                </select>
+              </div>
+              <div class="its-admin-field its-admin-field--full">
+                <label for="acc-desc">Popis</label>
+                <input type="text" id="acc-desc" placeholder="např. Výměna displeje iPhone 14">
+              </div>
+            </div>
+            <div class="its-admin-actions">
+              <button type="submit" class="its-admin-btn its-admin-btn--green">Přidat záznam</button>
+            </div>
+          </form>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Záznamy za měsíc</h2>
+          <div class="its-admin-table-wrap" id="accounting-table"></div>
+        </div>
+      </section>
+
+      <!-- Statistiky -->
+      <section class="its-admin-panel" id="panel-statistiky">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Statistiky</h1>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Počítá se ze zakázek. Dobu opravy bereme od vytvoření do dokončení (stav Hotovo / Vyzvednuto).
+          Vracející se zákazníky poznáme podle telefonu nebo e-mailu.
+        </div>
+        <div class="its-admin-card">
+          <div class="its-admin-form-grid">
+            <div class="its-admin-field">
+              <label for="stats-period">Období</label>
+              <select id="stats-period">
+                <option value="all">Celá historie</option>
+                <option value="30">Posledních 30 dní</option>
+                <option value="90">Posledních 90 dní</option>
+                <option value="year">Tento rok</option>
+                <option value="month">Tento měsíc</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="its-admin-stats" id="stats-summary"></div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Nejčastější typy oprav</h2>
+          <div class="its-admin-table-wrap" id="stats-repairs-table"></div>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Tržby podle kategorie oprav</h2>
+          <div class="its-admin-table-wrap" id="stats-revenue-table"></div>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Průměrná doba opravy</h2>
+          <div id="stats-turnaround"></div>
+        </div>
+        <div class="its-admin-card">
+          <h2 class="its-admin-card__title">Vracející se zákazníci</h2>
+          <div class="its-admin-table-wrap" id="stats-customers-table"></div>
+        </div>
+      </section>
+
+      <!-- Checklist -->
+      <section class="its-admin-panel" id="panel-checklist">
+        <div class="its-admin-topbar">
+          <h1 class="its-admin-topbar__title">Co je potřeba mít</h1>
+          <button type="button" id="save-checklist-btn" class="its-admin-btn its-admin-btn--primary">Uložit checklist</button>
+        </div>
+        <div class="its-admin-alert its-admin-alert--info">
+          Checklist pro servis oprav zařízení. Zaškrtněte hotové položky a doplňte poznámky. Postupně doplníme další moduly do adminu.
+        </div>
+        <div id="checklist-editor"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="sign-modal" class="its-sign-modal" hidden>
+    <div class="its-sign-modal__panel">
+      <div class="its-sign-modal__head">
+        <h2 id="sign-modal-title" class="its-sign-modal__title">Podpis zákazníka</h2>
+        <button type="button" class="its-admin-btn its-admin-btn--ghost" id="sign-modal-close">Zavřít</button>
+      </div>
+      <p id="sign-modal-desc" class="its-sign-modal__desc"></p>
+      <label class="its-admin-field" for="sign-modal-name">
+        Jméno podepisujícího
+        <input type="text" id="sign-modal-name" autocomplete="name">
+      </label>
+      <div class="its-sign-pad-wrap">
+        <canvas id="sign-canvas" class="its-sign-pad" width="700" height="280"></canvas>
+      </div>
+      <div class="its-sign-modal__actions">
+        <button type="button" class="its-admin-btn its-admin-btn--ghost" id="sign-modal-clear">Vymazat</button>
+        <button type="button" class="its-admin-btn its-admin-btn--primary" id="sign-modal-save">Uložit PDF s podpisem</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/devices-data.js"></script>
+  <script src="js/admin-api.js?v=37"></script>
+  <script src="js/admin-app.js?v=37"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "categories": [
+    {
+      "id": "orders",
+      "title": "Zakázky a zákazníci",
+      "priority": "high",
+      "items": [
+        { "id": "order-intake", "label": "Příjem zakázek (telefon, e-mail, web)", "done": true, "note": "Web + kontakt hotovo" },
+        { "id": "order-status", "label": "Evidence stavu zakázky (přijato → diagnostika → oprava → hotovo → vyzvednuto)", "done": true, "note": "Základ v admin sekci" },
+        { "id": "customer-data", "label": "Kontaktní údaje zákazníka u každé zakázky", "done": true, "note": "" },
+        { "id": "device-info", "label": "Model zařízení, IMEI / sériové číslo", "done": true, "note": "" },
+        { "id": "damage-photos", "label": "Fotodokumentace poškození při převzetí", "done": true, "note": "Admin → Zakázka → Vyfotit poškození / Oprava hotová" },
+        { "id": "handover-form", "label": "Potvrzení o převzetí zařízení (podpis)", "done": true, "note": "Admin → podpis na telefonu (PDF) + e-mail přes SMTP" },
+        { "id": "diagnostics", "label": "Diagnostika — zdarma nebo poplatek (pravidlo)", "done": true, "note": "Mobil: zdarma při opravě / poplatek při odmítnutí; zpráva + e-mail/hovor v adminu" }
+      ]
+    },
+    {
+      "id": "pricing",
+      "title": "Ceník a marže",
+      "priority": "high",
+      "items": [
+        { "id": "price-list", "label": "Ceník oprav podle modelu na webu", "done": true, "note": "iPhone hotovo" },
+        { "id": "price-admin", "label": "Admin pro úpravu cen bez zásahu do kódu", "done": true, "note": "" },
+        { "id": "purchase-prices", "label": "Nákupní ceny dílů od dodavatelů", "done": true, "note": "Admin → Ceník: sloupec Nákup (+ práce)" },
+        { "id": "margin", "label": "Sledování marže (prodej − nákup − práce)", "done": true, "note": "Admin → Marže + live výpočet v ceníku" },
+        { "id": "model-prices", "label": "Různé ceny podle modelu iPhonu", "done": true, "note": "Každý model má vlastní ceník v adminu" }
+      ]
+    },
+    {
+      "id": "inventory",
+      "title": "Sklad a díly",
+      "priority": "medium",
+      "items": [
+        { "id": "stock-list", "label": "Evidence skladových dílů", "done": true, "note": "Admin → Sklad; bez skladu rezervace +2 dny" },
+        { "id": "min-stock", "label": "Minimální množství a upozornění", "done": true, "note": "Admin → Sklad: minimum + alerty na přehledu" },
+        { "id": "suppliers", "label": "Seznam dodavatelů dílů", "done": true, "note": "Admin → Dodavatelé" },
+        { "id": "part-serial", "label": "Vazba použitého dílu na zakázku", "done": true, "note": "Admin → Zakázka → Použité díly (odečet skladu)" }
+      ]
+    },
+    {
+      "id": "accounting",
+      "title": "Účetnictví a finance",
+      "priority": "high",
+      "items": [
+        { "id": "income-expense", "label": "Evidence příjmů a výdajů", "done": true, "note": "Základ v admin sekci" },
+        { "id": "invoices", "label": "Faktury / paragony (režim DPH)", "done": true, "note": "PDF doklad po opravě v adminu; neplátce DPH — konzultovat s účetní" },
+        { "id": "monthly-report", "label": "Měsíční přehled tržeb a nákladů", "done": true, "note": "Admin → Účetnictví → měsíční přehled" },
+        { "id": "payment-methods", "label": "Evidence plateb (hotovost, převod, karta)", "done": true, "note": "" },
+        { "id": "accountant-export", "label": "Export dat pro účetní (CSV)", "done": true, "note": "CSV export záznamů, zakázek i celého měsíce" }
+      ]
+    },
+    {
+      "id": "legal",
+      "title": "Právní a záruka",
+      "priority": "medium",
+      "items": [
+        { "id": "warranty", "label": "Záruční podmínky na opravu (délka, rozsah)", "done": true, "note": "12 měsíců v obchodních podmínkách" },
+        { "id": "gdpr", "label": "GDPR — souhlas se zpracováním údajů", "done": true, "note": "ochrana-udaju.html + checkbox v rezervaci" },
+        { "id": "terms", "label": "Obchodní podmínky servisu", "done": true, "note": "obchodni-podminky.html" },
+        { "id": "data-backup", "label": "Upozornění zákazníka na zálohu dat", "done": true, "note": "v obchodních podmínkách" }
+      ]
+    },
+    {
+      "id": "reports",
+      "title": "Statistiky a růst",
+      "priority": "low",
+      "items": [
+        { "id": "repair-stats", "label": "Nejčastější typy oprav", "done": true, "note": "Admin → Statistiky" },
+        { "id": "revenue-stats", "label": "Tržby podle kategorie oprav", "done": true, "note": "Admin → Statistiky" },
+        { "id": "turnaround", "label": "Průměrná doba opravy", "done": true, "note": "od vytvoření do Hotovo/Vyzvednuto" },
+        { "id": "repeat-customers", "label": "Vracející se zákazníci", "done": true, "note": "podle telefonu / e-mailu" }
+      ]
+    }
+  ]
+}
