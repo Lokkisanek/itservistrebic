@@ -1,0 +1,7 @@
+node_modules
+.env
+.git
+data/sessions
+data/uploads
+*.log
+.DS_Store
