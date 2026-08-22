@@ -332,8 +332,36 @@
         var content = window.ITS_REPAIR_CONTENT;
         var item = findItemInCatalog(priceData, repairId);
         var meta = content.items[repairId] || {};
-        document.title =
-          (meta.sidebarTitle || item.title) + ' — ' + device.name + ' | IT Servis Třebíč';
+        var repairTitle = meta.sidebarTitle || item.title;
+        document.title = repairTitle + ' — ' + device.name + ' | IT Servis Třebíč';
+
+        if (window.ITSSeo) {
+          window.ITSSeo.apply({
+            title: document.title,
+            description: (meta.description || 'Profesionální servisní úkon v Třebíči včetně diagnostiky a montáže.') +
+              (item.price ? ' Cena od ' + Number(item.price).toLocaleString('cs-CZ') + ' Kč vč. DPH.' : ''),
+            canonical:
+              '/oprava.html?model=' + encodeURIComponent(device.id) +
+              '&oprava=' + encodeURIComponent(repairId),
+            image: meta.image || item.icon || 'images/photos/main-page-photo.jpg',
+            breadcrumbs: [
+              { name: 'Domů', path: '/' },
+              { name: 'iPhone', path: '/index.html?kategorie=iphone#cenik' },
+              { name: device.name, path: '/iphone.html?model=' + encodeURIComponent(device.id) },
+              {
+                name: repairTitle,
+                path:
+                  '/oprava.html?model=' + encodeURIComponent(device.id) +
+                  '&oprava=' + encodeURIComponent(repairId)
+              }
+            ],
+            service: {
+              name: repairTitle,
+              description: meta.description || '',
+              price: item.price || null
+            }
+          });
+        }
 
         root.innerHTML = html;
         bindCart();

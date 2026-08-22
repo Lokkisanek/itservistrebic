@@ -11,6 +11,7 @@ var rateLimit = require('express-rate-limit');
 var bcrypt = require('bcrypt');
 var multer = require('multer');
 var orderDocs = require('./lib/order-documents');
+var seo = require('./lib/seo');
 
 require('dotenv').config();
 
@@ -1765,6 +1766,35 @@ app.get('/admin/login.html', noCache, function (req, res) {
     return res.redirect('/admin/');
   }
   res.sendFile(path.join(ROOT, 'admin', 'login.html'));
+});
+
+// --- SEO (robots, sitemap, meta injection) ---
+
+app.get('/robots.txt', function (req, res) {
+  res.type('text/plain; charset=utf-8');
+  res.send(seo.buildRobotsTxt(seo.getSiteUrl(req)));
+});
+
+app.get('/sitemap.xml', function (req, res) {
+  res.type('application/xml; charset=utf-8');
+  res.set('Cache-Control', 'public, max-age=3600');
+  res.send(seo.buildSitemap(seo.getSiteUrl(req), ROOT));
+});
+
+app.use(function (req, res, next) {
+  if (!seo.isPublicHtmlRequest(req)) return next();
+
+  var filePath = seo.resolveHtmlPath(ROOT, req.path);
+  if (!filePath) return next();
+
+  var html = fs.readFileSync(filePath, 'utf8');
+  if (html.indexOf(seo.SEO_MARKER) === -1) return next();
+
+  var meta = seo.resolveMeta(req, ROOT);
+  html = seo.injectHtml(html, meta, seo.getSiteUrl(req), ROOT);
+  res.set('Content-Type', 'text/html; charset=utf-8');
+  res.set('Cache-Control', 'public, max-age=300');
+  res.send(html);
 });
 
 // --- Static files (veřejné HTML/CSS/JS/obrázky) ---

@@ -35,6 +35,31 @@ curl http://localhost:8080/api/health
 
 Za reverse proxy (Nginx/Caddy) s HTTPS nastavte `NODE_ENV=production` nebo `COOKIE_SECURE=1`.
 
+## SEO
+
+Web obsahuje kompletní SEO vrstvu:
+
+- **Meta tagy** — title, description, canonical, Open Graph, Twitter Cards, geo tagy
+- **JSON-LD** — LocalBusiness, FAQ, BreadcrumbList, Service/Product pro opravy iPhonů
+- **`/robots.txt`** — indexace veřejných stránek, blokace adminu a pokladny
+- **`/sitemap.xml`** — statické stránky + všechny modely iPhone a detailní opravy (~600 URL)
+
+V produkci nastavte v `.env`:
+
+```bash
+SITE_URL=https://www.vasedomena.cz
+```
+
+Bez `SITE_URL` se canonical a sitemap generují z aktuální domény requestu (vhodné pro localhost).
+
+Ověření:
+
+```bash
+curl -s http://localhost:8080/robots.txt
+curl -s http://localhost:8080/sitemap.xml | head
+curl -s http://localhost:8080/ | grep -E 'canonical|application/ld\\+json'
+```
+
 ## Co umí
 
 - Veřejný ceník iPhone + rezervace (termíny, doprava/mapa, platba na místě)

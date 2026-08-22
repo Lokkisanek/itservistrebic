@@ -134,6 +134,20 @@
 
     document.title = 'Oprava ' + device.name + ' | IT Servis Třebíč';
 
+    if (window.ITSSeo) {
+      window.ITSSeo.apply({
+        title: document.title,
+        description:
+          'Ceník oprav ' + device.name + ' v Třebíči. Výměna displeje, baterie, nabíjecího konektoru, kamer a Face ID. Ceny vč. DPH, rezervace online.',
+        canonical: '/iphone.html?model=' + encodeURIComponent(device.id),
+        breadcrumbs: [
+          { name: 'Domů', path: '/' },
+          { name: 'iPhone', path: '/index.html?kategorie=iphone#cenik' },
+          { name: device.name, path: '/iphone.html?model=' + encodeURIComponent(device.id) }
+        ]
+      });
+    }
+
     if (titleEl) titleEl.textContent = 'Oprava ' + device.name;
     if (breadcrumbEl) breadcrumbEl.textContent = device.name;
 
